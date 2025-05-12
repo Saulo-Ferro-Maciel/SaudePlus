@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html class="scroll-smooth" lang="pt-BR">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1" name="viewport"/>
+  <title>Clínica Saúde+ Dashboard</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet"/>
+  <style>
+    body {
+      font-family: "Inter", sans-serif;
+    }
+  </style>
+</head>
+<body class="bg-white text-black">
+  <script>
+    const usuario = JSON.parse(localStorage.getItem("usuario"));
+    if (!usuario || usuario.cargo !== "administrativo") {
+      window.location.href = "login.html";
+    }
+  </script>
+
+  <div class="min-h-screen flex">
+    <!-- Sidebar -->
+    <aside aria-label="Sidebar" class="flex flex-col justify-between bg-[#F5F4FF] w-64 px-6 py-8 select-none">
+      <div>
+        <img src="src/icon.png" alt="Logo Saúde++" class="w-12 mx-auto mb-10" />
+        <nav class="space-y-4">
+          <a aria-current="page" class="flex items-center gap-3 rounded-lg bg-[#E6E4FF] px-4 py-2 text-black text-sm font-normal" href="dashboard.html">
+            <i class="fas fa-th-large text-base"></i> Dashboard
+          </a>
+          <a class="flex items-center gap-3 px-4 py-2 text-black text-sm font-normal" href="financeiro.html">
+            <i class="fas fa-money-bill-wave text-base"></i> Financeiro
+          </a>
+          <a class="flex items-center gap-3 px-4 py-2 text-black text-sm font-normal" href="estoque.html">
+            <i class="fas fa-clipboard-list text-base"></i> Estoque
+          </a>
+          <a class="flex items-center gap-3 px-4 py-2 text-black text-sm font-normal" href="administracao.html">
+            <i class="fas fa-cogs text-base"></i> Administração
+          </a>
+        </nav>
+      </div>
+      <div class="flex flex-col gap-3">
+        <a aria-label="Perfil do usuário" class="flex items-center gap-3 rounded-lg bg-white px-4 py-2 shadow-md hover:shadow-lg transition-shadow duration-200" href="profile.html">
+          <img id="foto-usuario" alt="Foto de perfil" class="w-8 h-8 rounded-full object-cover" src="src/default-foto.jpg" />
+          <div class="text-xs leading-tight text-left">
+            <p id="nome-usuario" class="font-semibold text-black"></p>
+            <p id="cargo-usuario" class="text-gray-500"></p>
+          </div>
+        </a>
+        <button onclick="localStorage.removeItem('usuario'); window.location.href='login.html'" aria-label="Logout" class="w-full flex items-center justify-center gap-2 rounded-lg bg-[#5C4BFF] px-4 py-2 text-white font-semibold hover:bg-[#4a3ed1] transition-colors duration-200" type="button">
+          <i class="fas fa-sign-out-alt"></i> Sair
+        </button>
+      </div>
+    </aside>
+
+    <!-- Main content -->
+    <main class="flex-1 p-8 max-w-5xl mx-auto">
+      <p class="text-xs mb-6">Dashboard</p>
+      <h2 class="font-bold text-lg mb-6">Visão Geral</h2>
+      <section class="flex flex-col sm:flex-row gap-4 mb-10">
+        <div aria-label="Pacientes" class="bg-[#F5F4FF] rounded-xl p-6 flex-1 min-w-[180px] max-w-[220px]">
+          <div class="w-8 h-8 rounded-full bg-[#8B82FF] flex items-center justify-center mb-3">
+            <i class="fas fa-users text-[#4F46E5] text-xs"></i>
+          </div>
+          <p class="text-sm mb-1 font-semibold">Pacientes</p>
+          <p class="font -bold text-xl mb-1">1.250</p>
+          <p class="text-gray-500 text-sm">Total cadastrados</p>
+        </div>
+        <div aria-label="Consultas Hoje" class="bg-[#F5F4FF] rounded-xl p-6 flex-1 min-w-[180px] max-w-[220px]">
+          <div class="w-8 h-8 rounded-full bg-[#8B82FF] flex items-center justify-center mb-3">
+            <i class="fas fa-calendar-alt text-[#4F46E5] text-xs"></i>
+          </div>
+          <p class="text-sm mb-1 font-semibold">Consultas Hoje</p>
+          <p class="font-bold text-xl mb-1">32</p>
+          <p class="text-gray-500 text-sm">Agendadas para hoje</p>
+        </div>
+        <div aria-label="Receita do Mês" class="bg-[#F5F4FF] rounded-xl p-6 flex-1 min-w-[180px] max-w-[220px]">
+          <div class="w-8 h-8 rounded-full bg-[#8B82FF] flex items-center justify-center mb-3">
+            <i class="fas fa-dollar-sign text-[#4F46E5] text-xs"></i>
+          </div>
+          <p class="text-sm mb-1 font-semibold">Receita do Mês</p>
+          <p class="font-bold text-xl mb-1">R$ 45.000</p>
+          <p class="text-gray-500 text-sm">Receita acumulada</p>
+        </div>
+      </section>
+      <section class="mb-8">
+        <p class="mb-3 text-sm">Ações Rápidas</p>
+        <div class="flex flex-wrap gap-3">
+          <button class="bg-[#5C4BFF] text-white font-semibold rounded-lg px-5 py-2.5" type="button">Novo Agendamento</button>
+          <button class="bg-[#F5F4FF] text-[#8B82FF] font-semibold rounded-lg px-5 py-2.5" type="button">Cadastrar Paciente</button>
+        </div>
+      </section>
+      <section>
+        <p class="mb-4 text-sm">Consultas Recentes</p>
+        <ul class="divide-y divide-gray-200 border-t border-b border-gray-200">
+          <li class="flex items-center gap-4 py-3 text-sm">
+            <i class="fas fa-user text-lg text-gray-600"></i>
+            <img alt="Foto de Maria Souza" class="w-8 h-8 rounded-full object-cover" src="https://storage.googleapis.com/a1aa/image/d744e21a-fa8d-4c45-375f-88dfbc03cb28.jpg" />
+            <span class="flex-1">Maria Souza</span>
+            <span class="w-14 text-center">09:00</span>
+            <span class="w-20 text-center">Dr. Lima</span>
+            <span class="w-24 text-center">Confirmada</span>
+            <i class="fas fa-chevron-right text-gray-600"></i>
+          </li>
+          <li class="flex items-center gap-4 py-3 text-sm">
+            <i class="fas fa-user text-lg text-gray-600"></i>
+            <img alt="Foto de João Pedro" class="w-8 h-8 rounded-full object-cover" src="https://storage.googleapis.com/a1aa/image/47892448-2b0d-472b-dbbb-aa4249777c72.jpg" />
+            <span class="flex-1">João Pedro</span>
+            <span class="w-14 text-center">09:30</span>
+            <span class="w-20 text-center">Dra. Carla</span>
+            <span class="w-24 text-center">Aguardando</span>
+            <i class="fas fa-chevron-right text-gray-600"></i>
+          </li>
+          <li class="flex items-center gap-4 py-3 text-sm">
+            <i class="fas fa-user text-lg text-gray-600"></i>
+            <img alt="Foto de Fernanda Dias" class="w-8 h-8 rounded-full object-cover" src="https://storage.googleapis.com/a1aa/image/877b3d1b-98e6-4655-1e15-d6f170d1aea5.jpg" />
+            <span class="flex-1">Fernanda Dias</span>
+            <span class="w-14 text-center">10:00</span>
+            <span class="w-20 text -center">Dr. Lima</span>
+            <span class="w-24 text-center">Cancelada</span>
+            <i class="fas fa-chevron-right text-gray-600"></i>
+          </li>
+        </ul>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    document.getElementById("nome-usuario").innerText = usuario.nome;
+    document.getElementById("cargo-usuario").innerText = usuario.cargo.charAt(0).toUpperCase() + usuario.cargo.slice(1);
+    if (usuario.foto) {
+      document.getElementById("foto-usuario").src = usuario.foto;
+    }
+  </script>
+</body>
+</html>

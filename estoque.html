@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html class="scroll-smooth" lang="pt-BR">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1" name="viewport"/>
+  <title>Clínica Saúde+ Estoque</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet"/>
+  <style>
+    body {
+      font-family: "Inter", sans-serif;
+    }
+  </style>
+</head>
+<body class="bg-white text-black">
+  <script>
+    const usuario = JSON.parse(localStorage.getItem("usuario"));
+    if (!usuario || usuario.cargo !== "administrativo") {
+      window.location.href = "login.html";
+    }
+  </script>
+  
+  <div class="min-h-screen flex">
+    <!-- Sidebar -->
+    <aside aria-label="Sidebar" class="flex flex-col justify-between bg-[#F5F4FF] w-64 px-6 py-8 select-none">
+      <div>
+       <img src="src/icon.png" alt="Logo Saúde++" class="w-12 mx-auto mb-10" />
+        <nav class="space-y-4">
+          <a class="flex items-center gap-3 px-4 py-2 text-black text-sm font-normal" href="dashboard.html">
+            <i class="fas fa-th-large text-base"></i> Dashboard
+          </a>
+          <a class="flex items-center gap-3 px-4 py-2 text-black text-sm font-normal" href="financeiro.html">
+            <i class="fas fa-money-bill-wave text-base"></i> Financeiro
+          </a>
+          <a aria-current="page" class="flex items-center gap-3 rounded-lg bg-[#E6E4FF] px-4 py-2 text-black text-sm font-normal" href="estoque.html">
+            <i class="fas fa-clipboard-list text-base"></i> Estoque
+          </a>
+          <a class="flex items-center gap-3 px-4 py-2 text-black text-sm font-normal" href="administracao.html">
+            <i class="fas fa-user-cog text-base"></i> Administração
+          </a>
+        </nav>
+      </div>
+      <div class="flex flex-col gap-3">
+        <a aria-label="Perfil do usuário" class="flex items-center gap-3 rounded-lg bg-white px-4 py-2 shadow-md hover:shadow-lg transition-shadow duration-200" href="profile.html">
+          <img id="foto-usuario" alt="Foto de perfil" class="w-8 h-8 rounded-full object-cover" src="src/default-foto.jpg" />
+          <div class="text-xs leading-tight text-left">
+            <p id="nome-usuario" class="font-semibold text-black"></p>
+            <p id="cargo-usuario" class="text-gray-500"></p>
+          </div>
+        </a>
+        <button onclick="localStorage.removeItem('usuario'); window.location.href='login.html'" aria-label="Logout" class="w-full flex items-center justify-center gap-2 rounded-lg bg-[#5C4BFF] px-4 py-2 text-white font-semibold hover:bg-[#4a3ed1] transition-colors duration-200" type="button">
+          <i class="fas fa-sign-out-alt"></i> Sair
+        </button>
+      </div>
+    </aside>
+
+    <!-- Main content -->
+    <main class="flex-1 p-8 max-w-5xl">
+      <nav class="text-sm mb-4 text-black/90 font-normal">
+        <a class="hover:underline" href="dashboard.html">Dashboard</a>
+        <span class="mx-2 select-none">›</span>
+        <span>Estoque</span>
+      </nav>
+
+      <h2 class="text-lg font-semibold mb-4">Gestão de Estoque</h2>
+
+      <button class="mb-6 bg-[#5B5FFB] text-white font-semibold rounded-lg px-4 py-2 text-sm hover:bg-[#4a4ae0] transition-colors" type="button">
+        Adicionar Produto
+      </button>
+
+      <section class="mb-6">
+        <h3 ```html
+        <h3 class="text-base font-normal mb-3">Produtos em Estoque</h3>
+        <ul class="divide-y divide-gray-200 border-t border-b border-gray-200">
+          <li class="flex items-center justify-between py-3 text-sm font-normal text-black">
+            <div class="flex items-center gap-3 min-w-0">
+              <img alt="Imagem do produto Álcool Gel" class="w-8 h-8 rounded-full object-cover flex-shrink-0" src="https://storage.googleapis.com/a1aa/image/3ade7c13-1bd1-4fa2-c566-ced6e147cbec.jpg" />
+              <span class="truncate">Álcool Gel</span>
+            </div>
+            <span class="min-w-[90px] text-center">Unidades: 120</span>
+            <span class="min-w-[60px] text-center">Baixo</span>
+            <div class="flex gap-4 text-black text-base min-w-[48px]">
+              <button aria-label="Editar Álcool Gel" class="hover:text-black/70">
+                <i class="fas fa-pencil-alt"></i>
+              </button>
+              <button aria-label="Excluir Álcool Gel" class="hover:text-black/70">
+                <i class="fas fa-trash"></i>
+              </button>
+            </div>
+          </li>
+          <li class="flex items-center justify-between py-3 text-sm font-normal text-black">
+            <div class="flex items-center gap-3 min-w-0">
+              <img alt="Imagem do produto Luvas" class="w-8 h-8 rounded-full object-cover flex-shrink-0" src="https://storage.googleapis.com/a1aa/image/d0ec7168-f45d-4503-ae62-b7dcde59b53c.jpg" />
+              <span class="truncate">Luvas</span>
+            </div>
+            <span class="min-w-[90px] text-center">Unidades: 350</span>
+            <span class="min-w-[60px] text-center">Normal</span>
+            <div class="flex gap-4 text-black text-base min-w-[48px]">
+              <button aria-label="Editar Luvas" class="hover:text-black/70">
+                <i class="fas fa-pencil-alt"></i>
+              </button>
+              <button aria-label="Excluir Luvas" class="hover:text-black/70">
+                <i class="fas fa-trash"></i>
+              </button>
+            </div>
+          </li>
+          <li class="flex items-center justify-between py-3 text-sm font-normal text-black">
+            <div class="flex items-center gap-3 min-w-0">
+              <img alt="Imagem do produto Máscaras" class="w-8 h-8 rounded-full object-cover flex-shrink-0" src="https://storage.googleapis.com/a1aa/image/0cb0620b-b3c2-4232-54c2-2619a613012a.jpg" />
+              <span class="truncate">Máscaras</span>
+            </div>
+            <span class="min-w-[90px] text-center">Unidades: 80</span>
+            <span class="min-w-[60px] text-center">Crítico</span>
+            <div class="flex gap-4 text-black text-base min-w-[48px]">
+              <button aria-label="Editar Máscaras" class="hover:text-black/70">
+                <i class="fas fa-pencil-alt"></i>
+              </button>
+              <button aria-label="Excluir Máscaras" class="hover:text-black/70">
+                <i class="fas fa-trash"></i>
+              </button>
+            </div>
+          </li>
+        </ul>
+      </section>
+
+      <section>
+        <h3 class="text-base font-normal mb-6">Estoque por Categoria</h3>
+        <div class="overflow-x-auto">
+          <svg aria-label="Gráfico de barras mostrando estoque por categoria" class="w-full max-w-full" fill="none" height="200" role="img" viewBox="0 0 600 200" width="600" xmlns="http://www.w3.org/2000/svg">
+            <line stroke="#D1D5DB" stroke-width="1" x1="50" x2="50" y1="10" y2="180"></line>
+            <line stroke="#E5E7EB" stroke-width="1" x1="50" x2="580" y1="50" y2="50"></line>
+            <line stroke="#E5E7EB" stroke-width="1" x1="50" x2="580" y1="90" y2="90"></line>
+            <line stroke="#E5E7EB" stroke-width="1" x1="50" x2="580" y1="130" y2="130"></line>
+            <line stroke="#E5E7EB" stroke-width="1" x1="50" x2="580" y1="170" y2="170"></line>
+            <rect fill="black" height="160" width="40" x="60" y="20"></rect>
+            <rect fill="black" height="70" width="40" x="120" y="110"></rect>
+            <rect fill="black" height="50" width="40" x="180" y="130"></rect>
+            <rect fill="black" height="110" width="40" x="240" y="70"></rect>
+            <rect fill="black" height="80" width="40" x="300" y="100"></rect>
+            <rect fill="black" height="60" width="40" x="360" y="120"></rect>
+            <rect fill="black" height="40" width="40" x="420" y="140"></rect>
+            <rect fill="black" height="30" width="40" x="480" y="150"></rect>
+            <rect fill="black" height="20" width="40" x="540" y="160"></rect>
+            <text fill="#6B7280" font-size="12" text-anchor="middle" x="80" y="190">Luvas</text>
+            <text fill="#6B7280" font-size="12" text-anchor="middle" x="140" y="190">Álcool</text>
+            <text fill="#6B7280" font-size="12" text-anchor="middle" x="200" y="190">Máscaras</text>
+            <text fill="#6B7280" font-size="12" text-anchor="middle" x="260" y="190">Seringa</text>
+            <text fill="#6B7280" font-size="12" text-anchor="middle" x="320" y="190">Gaze</text>
+            <text fill="#6B7280" font-size="12" text-anchor="middle" x="380" y="190">Algodão</text>
+            <text fill="#6B7280" font-size="12" text-anchor="middle" x="440" y="190">Soro</text>
+            <text fill="#6B7280" font-size="12" text-anchor="middle" x="500" y="190">Fita</text>
+            <text fill="#6B7280" font-size="12" text-anchor="middle" x="560" y="190">Esparadrapo</text>
+            <text fill="#6B7280" font-size="12" text-anchor="middle" x="620" y="190">Termômetro</text>
+            <text fill="#6B7280" font-size="12" text-anchor="middle" x="680" y="190">Avental</text>
+            <text fill="#6B7280" font-size="12" text-anchor="middle" x="740" y="190">Agulha</text>
+          </svg>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    document.getElementById("nome-usuario").innerText = usuario.nome;
+    document.getElementById("cargo-usuario").innerText = usuario.cargo.charAt(0).toUpperCase() + usuario.cargo.slice(1);
+    if (usuario.foto) {
+      document.getElementById("foto-usuario").src = usuario.foto;
+    }
+  </script>
+</body>
+</html>

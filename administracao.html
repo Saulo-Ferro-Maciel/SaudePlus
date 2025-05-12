@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html class="scroll-smooth" lang="pt-BR">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1" name="viewport"/>
+  <title>Administração do Sistema</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet"/>
+  <style>
+    body {
+      font-family: "Inter", sans-serif;
+    }
+  </style>
+</head>
+<body class="bg-white text-black">
+  <script>
+    const usuario = JSON.parse(localStorage.getItem("usuario"));
+    if (!usuario || usuario.cargo !== "administrativo") {
+      window.location.href = "login.html";
+    }
+  </script>
+  
+  <div class="min-h-screen flex">
+    <!-- Sidebar -->
+     <aside aria-label="Sidebar" class="flex flex-col justify-between bg-[#F5F4FF] w-64 px-6 py-8 select-none">
+      <div>
+        <img src="src/icon.png" alt="Logo Saúde++" class="w-12 mx-auto mb-10" />
+        <nav class="space-y-4">
+          <a class="flex items-center gap-3 px-4 py-2 text-black text-sm font-normal" href="dashboard.html">
+            <i class="fas fa-th-large text-base"></i> Dashboard
+          </a>
+          <a class="flex items-center gap-3 px-4 py-2 text-black text-sm font-normal" href="financeiro.html">
+            <i class="fas fa-money-bill-wave text-base"></i> Financeiro
+          </a>
+          <a class="flex items-center gap-3 px-4 py-2 text-black text-sm font-normal" href="estoque.html">
+            <i class="fas fa-clipboard-list text-base"></i> Estoque
+          </a>
+          <a aria-current="page" class="flex items-center gap-3 rounded-lg bg-[#E6E4FF] px-4 py-2 text-black text-sm font-normal" href="administracao.html">
+            <i class="fas fa-cog text-base"></i> Administração
+          </a>
+        </nav>
+      </div>
+      <div class="flex flex-col gap-3">
+        <a aria-label="Perfil do usuário" class="flex items-center gap-3 rounded-lg bg-white px-4 py-2 shadow-md hover:shadow-lg transition-shadow duration-200" href="profile.html">
+          <img id="foto-usuario" alt="Foto de perfil" class="w-8 h-8 rounded-full object-cover" src="src/default-foto.jpg" />
+          <div class="text-xs leading-tight text-left">
+            <p id="nome-usuario" class="font-semibold text-black"></p>
+            <p id="cargo-usuario" class="text-gray-500"></p>
+          </div>
+        </a>
+        <button onclick="localStorage.removeItem('usuario'); window.location.href='login.html'" aria-label="Logout" class="w-full flex items-center justify-center gap-2 rounded-lg bg-[#5C4BFF] px-4 py-2 text-white font-semibold hover:bg-[#4a3ed1] transition-colors duration-200" type="button">
+          <i class="fas fa-sign-out-alt"></i> Sair
+        </button>
+      </div>
+    </aside>
+    
+    <!-- Main content -->
+    <main class="flex-1 p-8 max-w-5xl">
+      <nav class="text-sm text-black mb-4 font-normal">
+        <a class="hover:underline" href="#">Dashboard</a>
+        <span class="mx-2">›</span>
+        <span class="font-normal">Administração</span>
+      </nav>
+      <h2 class="font-semibold text-lg mb-4">Administração do Sistema</h2>
+      <button class="bg-[#5C4BFF] text-white font-semibold rounded-lg px-5 py-2 mb-8 hover:bg-[#4a3edb] transition-colors" type="button">
+        Adicionar <strong>Associado</strong>
+      </button>
+      <section class="mb-8">
+        <h3 class="mb-4 font-normal text-base">Lista de Associados</h3>
+        <ul class="divide-y divide-gray-200">
+          <li class="flex items-center justify-between py-3">
+            <div class="flex items-center gap-4">
+              <img alt="Foto de perfil de João Silva" class="w-10 h-10 rounded-full object-cover" src="https://storage.googleapis.com/a1aa/image/e5bb2fda-d29e-4083-ea13-9865534af596.jpg" />
+              <span class="text-sm">João Silva</span>
+            </div>
+            <span class="text-sm w-32 text-center">Médico</span>
+            <span class="text-sm w-24 text-center">Ativo</span>
+            <div class="flex gap-4 text-lg cursor-pointer">
+              <i class="fas fa-pencil-alt"></i>
+              <i class="fas fa-trash"></i>
+            </div>
+          </li>
+          <li class="flex items-center justify-between py-3">
+            <div class="flex items-center gap-4">
+              <img alt="Foto de perfil de Maria Souza" class="w-10 h-10 rounded-full object-cover" src="https://storage.googleapis.com/a1aa/image/b4534dc4-1210-459d-a9d4-5bca42da8ed6.jpg" />
+              <span class="text-sm">Maria Souza</span>
+            </div>
+            <span class="text-sm w-32 text-center">Enfermeira</span>
+            <span class="text-sm w-24 text-center">Ativo</span>
+            <div class="flex gap-4 text-lg cursor-pointer">
+              <i class="fas fa-pencil-alt"></i>
+              <i class="fas fa-trash"></i>
+            </div>
+          </li>
+          <li class="flex items-center justify-between py-3">
+            <div class="flex items-center gap-4">
+              <img alt="Foto de perfil de Carlos Lima" class="w-10 h-10 rounded-full object-cover" src="https://storage.googleapis.com/a1aa/image/efa8347c-2455-49f3-5ec7-42d3acb61a9e.jpg" />
+              <span class="text-sm">Carlos Lima</span>
+            </div>
+            <span class="text-sm w-32 text-center">Recepcionista</span>
+            <span class="text-sm w-24 text-center">Inativo</span>
+            <div class="flex gap-4 text-lg cursor-pointer">
+              <i class="fas fa-pencil-alt"></i>
+              <i class="fas fa-trash"></i>
+            </div>
+          </li>
+        </ul>
+      </section>
+      <section>
+        <h3 class="mb-4 font-normal text-base">Permissões e Cargos</h3>
+        <ul class="flex flex-col gap-6">
+          <li class="flex items-center justify-between">
+            <div class="flex items-center gap-4">
+              <img alt="Ilustração de João Silva" class="w-12 h-12 rounded-full object-cover" src="https://storage.googleapis.com/a1aa/image/a8b42492-57fd-4772-032d-bc56b9bd5d56.jpg" />
+              <div class="flex flex-col leading-tight">
+                <span class="text-sm font-normal">João Silva</span>
+                <span class="text-xs text-gray-400">Médico</span>
+              </div>
+            </div>
+            <div class="flex items-center gap-4 text-lg cursor-pointer">
+              <i class="fas fa-pencil-alt"></i>
+              <span class="text-sm font-normal">Select</span>
+              <i class="fas fa-chevron-down text-sm"></i>
+            </div>
+          </li>
+          <li class="flex items-center justify-between">
+            <div class="flex items-center gap-4">
+              <img alt="Ilustração de Maria Souza" class="w-12 h-12 rounded-full object-cover" src="https://storage.googleapis.com/a1aa/image/592fbe6b-728c-4ab0-4ce0-18f426cb397e.jpg" />
+              <div class="flex flex-col leading-tight">
+                <span class="text-sm font-normal">Maria Souza</span>
+                <span class="text-xs text-gray-400">Enfermeira</span>
+              </div>
+            </div>
+            <div class="flex items-center gap-4 text-lg cursor-pointer">
+              <i class="fas fa-pencil-alt"></i>
+              <span class="text-sm font-normal">Select</span>
+              <i class="fas fa-chevron-down text-sm"></i>
+            </div>
+          </li>
+          <li class="flex items-center justify-between">
+            <div class="flex items-center gap-4">
+              <img alt="Foto de Carlos Lima" class="w-12 h-12 rounded-full object-cover" src="https://storage.googleapis.com/a1aa/image/989b0822-4abc-475e-b788-674ea4bfc4a1.jpg" />
+              <div class="flex flex-col leading-tight">
+                <span class="text-sm font-normal">Carlos Lima</span>
+                <span class="text-xs text-gray-400">Recepcionista</span>
+              </div>
+            </div>
+            <div class="flex items-center gap-4 text-lg cursor-pointer">
+              <i class="fas fa-pencil-alt"></i>
+              <span class="text-sm font-normal">Select</span>
+              <i class="fas fa-chevron-down text-sm"></i>
+            </div>
+          </li>
+        </ul>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    document.getElementById("nome-usuario").innerText = usuario.nome;
+    document.getElementById("cargo-usuario").innerText = usuario.cargo.charAt(0).toUpperCase() + usuario.cargo.slice(1);
+    if (usuario.foto) {
+      document.getElementById("foto-usuario").src = usuario.foto;
+    }
+  </script>
+</body>
+</html> 
