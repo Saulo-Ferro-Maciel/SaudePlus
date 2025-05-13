@@ -11,10 +11,12 @@
   <style>
     body {
       font-family: "Inter", sans-serif;
+      margin: 0; /* Remove margens padrão do body */
+      padding-bottom: 40px; /* Espaço para o footer fixo */
     }
     /* Estilização do footer */
     footer {
-      background-color: rgb(0, 77, 128); /* Azul-marinho com 60% ciano */
+      background-color: #5C4BFF; /* Cor do botão de logout (roxo) */
       padding: 5px 0; /* Padding apenas vertical para altura reduzida */
       text-align: center;
       font-family: 'Inter', sans-serif;
@@ -131,7 +133,7 @@
       <h2 class="font-bold text-lg mb-6">Visão Geral</h2>
       <section class="flex flex-col sm:flex-row gap-4 mb-10">
         <div aria-label="Pacientes" class="bg-[#F5F4FF] rounded-xl p-6 flex-1 min-w-[180px] max-w-[220px]">
-          <div class="w-8 h8 rounded-full bg-[#8B82FF] flex items-center justify-center mb-3">
+          <div class="w-8 h-8 rounded-full bg-[#8B82FF] flex items-center justify-center mb-3">
             <i class="fas fa-users text-[#4F46E5] text-xs"></i>
           </div>
           <p class="text-sm mb-1 font-semibold">Pacientes</p>
@@ -199,7 +201,7 @@
 
   <!-- Footer -->
   <footer>
-    <p>Feito por <span class="team-link" onclick="showPopup()">Four Team</span> © 2025 </p>
+    <p>© 2025 Feito por <span class="team-link" onclick="showPopup()">Four Team</span></p>
   </footer>
 
   <!-- Pop-up -->
@@ -217,31 +219,45 @@
 
   <!-- Scripts -->
   <script>
-    // Autenticação do usuário
-    const usuario = JSON.parse(localStorage.getItem("usuario"));
-    if (!usuario || usuario.cargo !== "administrativo") {
-      window.location.href = "login.html";
-    }
-    document.getElementById("nome-usuario").innerText = usuario.nome;
-    document.getElementById("cargo-usuario").innerText = usuario.cargo.charAt(0).toUpperCase() + usuario.cargo.slice(1);
-    if (usuario.foto) {
-      document.getElementById("foto-usuario").src = usuario.foto;
-    }
-
     // Funções do pop-up
     function showPopup() {
       const popup = document.getElementById('teamPopup');
-      popup.style.display = 'block';
-      popup.classList.add('animate__slideInUp'); /* Adiciona animação ao abrir */
-      document.getElementById('overlay').style.display = 'block';
+      const overlay = document.getElementById('overlay');
+      if (popup && overlay) {
+        popup.style.display = 'block';
+        popup.classList.remove('animate__slideInUp'); // Remove animação anterior, se houver
+        void popup.offsetWidth; // Força reflow para reiniciar a animação
+        popup.classList.add('animate__slideInUp'); // Adiciona animação
+        overlay.style.display = 'block';
+      } else {
+        console.error("Erro: Pop-up ou overlay não encontrados!");
+      }
     }
 
     function hidePopup() {
       const popup = document.getElementById('teamPopup');
-      popup.style.display = 'none';
-      popup.classList.remove('animate__slideInUp'); /* Remove animação ao fechar */
-      document.getElementById('overlay').style.display = 'none';
+      const overlay = document.getElementById('overlay');
+      if (popup && overlay) {
+        popup.style.display = 'none';
+        popup.classList.remove('animate__slideInUp'); // Remove animação
+        overlay.style.display = 'none';
+      } else {
+        console.error("Erro: Pop-up ou overlay não encontrados!");
+      }
     }
+
+    // Autenticação do usuário (movido para o final para garantir que os elementos estejam carregados)
+    document.addEventListener('DOMContentLoaded', () => {
+      const usuario = JSON.parse(localStorage.getItem("usuario"));
+      if (!usuario || usuario.cargo !== "administrativo") {
+        window.location.href = "login.html";
+      }
+      document.getElementById("nome-usuario").innerText = usuario.nome;
+      document.getElementById("cargo-usuario").innerText = usuario.cargo.charAt(0).toUpperCase() + usuario.cargo.slice(1);
+      if (usuario.foto) {
+        document.getElementById("foto-usuario").src = usuario.foto;
+      }
+    });
   </script>
 </body>
 </html>
