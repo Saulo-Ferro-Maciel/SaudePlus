@@ -7,9 +7,79 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
   <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
   <style>
     body {
       font-family: "Inter", sans-serif;
+    }
+    /* Estilização do footer */
+    footer {
+      background-color: rgb(0, 77, 128); /* Azul-marinho com 60% ciano */
+      padding: 5px 0; /* Padding apenas vertical para altura reduzida */
+      text-align: center;
+      font-family: 'Inter', sans-serif;
+      position: fixed;
+      bottom: 0;
+      width: 100%; /* Preenche toda a largura */
+      margin: 0; /* Remove margens */
+      box-sizing: border-box; /* Garante que padding não afete a largura */
+      color: white; /* Letras brancas */
+      font-size: 14px; /* Tamanho da fonte */
+      z-index: 1000; /* Garante que o footer fique acima de outros elementos */
+    }
+    .team-link {
+      color: white; /* Link branco */
+      cursor: pointer;
+      text-decoration: underline;
+    }
+    .team-link:hover {
+      color: #f0f0f0; /* Leve destaque ao passar o mouse */
+    }
+    /* Estilização do pop-up */
+    .popup {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: white;
+      padding: 20px;
+      border: 1px solid #ccc;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      z-index: 1001; /* Acima do footer e overlay */
+      text-align: left;
+      font-family: 'Inter', sans-serif;
+      font-size: 18px; /* Fonte aumentada no pop-up */
+      max-width: 90%; /* Garante visibilidade em telas menores */
+      box-sizing: border-box;
+    }
+    .popup h3 {
+      margin-top: 0;
+      font-size: 20px; /* Título do pop-up com fonte maior */
+    }
+    .close-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      cursor: pointer;
+      font-size: 18px;
+      background-color: rgba(255, 99, 71, 0.2); /* Fundo levemente avermelhado */
+      padding: 5px 10px;
+      border-radius: 5px;
+      transition: background-color 0.2s;
+    }
+    .close-btn:hover {
+      background-color: rgba(255, 99, 71, 0.4); /* Efeito hover mais escuro */
+    }
+    .overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 999; /* Abaixo do pop-up, acima do resto */
     }
   </style>
 </head>
@@ -61,7 +131,7 @@
       <h2 class="font-bold text-lg mb-6">Visão Geral</h2>
       <section class="flex flex-col sm:flex-row gap-4 mb-10">
         <div aria-label="Pacientes" class="bg-[#F5F4FF] rounded-xl p-6 flex-1 min-w-[180px] max-w-[220px]">
-          <div class="w-8 h-8 rounded-full bg-[#8B82FF] flex items-center justify-center mb-3">
+          <div class="w-8 h8 rounded-full bg-[#8B82FF] flex items-center justify-center mb-3">
             <i class="fas fa-users text-[#4F46E5] text-xs"></i>
           </div>
           <p class="text-sm mb-1 font-semibold">Pacientes</p>
@@ -127,11 +197,50 @@
     </main>
   </div>
 
+  <!-- Footer -->
+  <footer>
+    <p>Feito por <span class="team-link" onclick="showPopup()">Four Team</span> © 2025 </p>
+  </footer>
+
+  <!-- Pop-up -->
+  <div class="overlay" id="overlay"></div>
+  <div class="popup animate__animated" id="teamPopup">
+    <span class="close-btn" onclick="hidePopup()">×</span>
+    <h3>Membros da Equipe:</h3>
+    <ul>
+      <li>Arthur (Chefe de equipe)</li>
+      <li>Saulo (Programador Full Stack)</li>
+      <li>Gabriela (Programadora Front-end)</li>
+      <li>Danilo (Designer UX)</li>
+    </ul>
+  </div>
+
+  <!-- Scripts -->
   <script>
+    // Autenticação do usuário
+    const usuario = JSON.parse(localStorage.getItem("usuario"));
+    if (!usuario || usuario.cargo !== "administrativo") {
+      window.location.href = "login.html";
+    }
     document.getElementById("nome-usuario").innerText = usuario.nome;
     document.getElementById("cargo-usuario").innerText = usuario.cargo.charAt(0).toUpperCase() + usuario.cargo.slice(1);
     if (usuario.foto) {
       document.getElementById("foto-usuario").src = usuario.foto;
+    }
+
+    // Funções do pop-up
+    function showPopup() {
+      const popup = document.getElementById('teamPopup');
+      popup.style.display = 'block';
+      popup.classList.add('animate__slideInUp'); /* Adiciona animação ao abrir */
+      document.getElementById('overlay').style.display = 'block';
+    }
+
+    function hidePopup() {
+      const popup = document.getElementById('teamPopup');
+      popup.style.display = 'none';
+      popup.classList.remove('animate__slideInUp'); /* Remove animação ao fechar */
+      document.getElementById('overlay').style.display = 'none';
     }
   </script>
 </body>
