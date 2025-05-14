@@ -11,6 +11,32 @@
     body {
       font-family: "Inter", sans-serif;
     }
+    .foto-hover-container {
+      position: relative;
+      display: inline-block;
+      cursor: pointer;
+    }
+    .foto-hover-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(128, 128, 128, 0.3);
+      color: white;
+      font-size: 2rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 9999px;
+      opacity: 0;
+      transition: opacity 0.3s;
+      pointer-events: none;
+    }
+    .foto-hover-container:hover .foto-hover-overlay {
+      opacity: 1;
+      pointer-events: auto;
+    }
   </style>
 </head>
 <body class="bg-white text-black">
@@ -43,7 +69,7 @@
       </div>
       <div class="flex flex-col gap-3">
         <a class="flex items-center gap-3 bg-white px-4 py-2 shadow-md rounded-lg" href="profile.html">
-          <img id="foto-usuario" alt="Foto de perfil" class="w-8 h-8 rounded-full object-cover" src="src/default-foto.jpg" />
+          <img id="foto-usuario" alt="Foto de perfil" class="w-8 h-8 rounded-full object-cover" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT_COfMzaXFvUkyxHUw6bCb9EMNP9tNufE_uQ&s" />
           <div class="text-xs">
             <p id="nome-usuario" class="font-semibold text-black"></p>
             <p id="cargo-usuario" class="text-gray-500"></p>
@@ -59,16 +85,22 @@
       <div class="bg-[#F5F4FF] rounded-xl p-6">
         <div class="flex items-center mb-4">
           <input type="file" id="input-foto" accept="image/*" class="hidden" />
-          <img id="foto-usuario-perfil" alt="Foto de perfil" class="cursor-pointer w-24 h-24 rounded-full object-cover mr-4" src="src/default-foto.jpg" onclick="document.getElementById('input-foto').click()" />
+          <div class="foto-hover-container" onclick="document.getElementById('input-foto').click()">
+            <img id="foto-usuario-perfil" alt="Foto de perfil" class="w-24 h-24 rounded-full object-cover mr-4" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT_COfMzaXFvUkyxHUw6bCb9EMNP9tNufE_uQ&s" />
+            <div class="foto-hover-overlay">+</div>
+          </div>
           <div>
             <h3 class="text-xl font-semibold" id="nome-usuario-perfil"></h3>
             <p class="text-gray-500" id="cargo-usuario-perfil"></p>
           </div>
         </div>
         <div class="mb-4">
-          <h4 class="font-semibold">Informações de Contato</h4>
-          <input id="email-input" type="email" class="mt-1 p-2 border rounded w-full text-gray-700" />
-          <input id="telefone-input" type="text" class="mt-2 p-2 border rounded w-full text-gray-700" />
+          <h4 class="font-semibold">Número de telefone</h4>
+          <input id="telefone-input" type="text" class="mt-1 p-2 border rounded w-full text-gray-700" />
+        </div>
+        <div class="mb-4">
+          <h4 class="font-semibold">E-mail</h4>
+          <input id="email-input" type="email" class="mt-1 p-2 border rounded w-full text-gray-700 bg-gray-100 cursor-not-allowed" readonly />
         </div>
         <div class="mb-4">
           <h4 class="font-semibold">Sobre</h4>
