@@ -42,7 +42,7 @@
         </label>
         <div class="relative">
           <input
-            class="w-full rounded-lg bg-gray-100 dark:bg-gray-700 px-3 sm:px-4 py-2 sm:py-3 text-xs sm:text-base placeholder:text-black dark:placeholder:text-white placeholder:font-normal focus:outline-none focus:ring-2 focus:ring-blue-600"
+            class="w-full rounded-lg bg-gray-100 dark:bg-gray-700 px-3 sm:px-4 py-2 sm:py-3 text-xs sm:text-base text-black dark:text-white placeholder:text-black dark:placeholder:text-white placeholder:font-normal focus:outline-none focus:ring-2 focus:ring-blue-600"
             id="nome"
             name="nome"
             placeholder="Digite seu nome"
@@ -58,7 +58,7 @@
         </label>
         <div class="relative">
           <input
-            class="w-full rounded-lg bg-gray-100 dark:bg-gray-700 px-3 sm:px-4 py-2 sm:py-3 pr-10 text-xs sm:text-base placeholder:text-black dark:placeholder:text-white placeholder:font-normal focus:outline-none focus:ring-2 focus:ring-blue-600"
+            class="w-full rounded-lg bg-gray-100 dark:bg-gray-700 px-3 sm:px-4 py-2 sm:py-3 pr-10 text-xs sm:text-base text-black dark:text-white placeholder:text-black dark:placeholder:text-white placeholder:font-normal focus:outline-none focus:ring-2 focus:ring-blue-600"
             id="email"
             name="email"
             placeholder="exemplo@saude.com"
@@ -92,7 +92,7 @@
         </label>
         <div class="relative">
           <input
-            class="w-full rounded-lg bg-gray-100 dark:bg-gray-700 px-3 sm:px-4 py-2 sm:py-3 pr-14 text-xs sm:text-base placeholder:text-black dark:placeholder:text-white placeholder:font-normal focus:outline-none focus:ring-2 focus:ring-blue-600 senha-input"
+            class="w-full rounded-lg bg-gray-100 dark:bg-gray-700 px-3 sm:px-4 py-2 sm:py-3 pr-14 text-xs sm:text-base text-black dark:text-white placeholder:text-black dark:placeholder:text-white placeholder:font-normal focus:outline-none focus:ring-2 focus:ring-blue-600 senha-input"
             id="senha"
             name="senha"
             placeholder="Crie uma senha"
@@ -110,7 +110,7 @@
         </label>
         <div class="relative">
           <input
-            class="w-full rounded-lg bg-gray-100 dark:bg-gray-700 px-3 sm:px-4 py-2 sm:py-3 pr-14 text-xs sm:text-base placeholder:text-black dark:placeholder:text-white placeholder:font-normal focus:outline-none focus:ring-2 focus:ring-blue-600 senha-input"
+            class="w-full rounded-lg bg-gray-100 dark:bg-gray-700 px-3 sm:px-4 py-2 sm:py-3 pr-14 text-xs sm:text-base text-black dark:text-white placeholder:text-black dark:placeholder:text-white placeholder:font-normal focus:outline-none focus:ring-2 focus:ring-blue-600 senha-input"
             id="confirmar-senha"
             name="confirmar-senha"
             placeholder="Repita a senha"
@@ -140,7 +140,6 @@
   </main>
 
   <script>
-    // Aplica o modo noturno ou diurno com base no estado salvo
     function aplicarModo(modo) {
       const body = document.getElementById("body");
       const icone = document.getElementById("modoIcone");
@@ -150,7 +149,6 @@
       const paragrafos = document.querySelectorAll("p");
 
       if (modo === "MN") {
-        // Aplica o modo noturno
         body.classList.add("bg-gray-900", "text-white", "dark");
         body.classList.remove("bg-white", "text-black");
 
@@ -173,7 +171,6 @@
         icone.classList.remove("fa-moon");
         texto.textContent = " Modo Claro";
       } else {
-        // Aplica o modo diurno
         body.classList.add("bg-white", "text-black");
         body.classList.remove("bg-gray-900", "text-white", "dark");
 
@@ -200,7 +197,6 @@
       console.log("Modo aplicado:", modo);
     }
 
-    // Alterna entre modo noturno e diurno
     function alternarModoNoturno() {
       const modoAtual = localStorage.getItem("modo") || "MD";
       const novoModo = modoAtual === "MD" ? "MN" : "MD";
@@ -208,13 +204,11 @@
       localStorage.setItem("modo", novoModo);
     }
 
-    // Carrega o modo salvo ao iniciar a página
     document.addEventListener("DOMContentLoaded", () => {
       const modoSalvo = localStorage.getItem("modo") || "MD";
       aplicarModo(modoSalvo);
     });
 
-    // Alterna a visibilidade da senha
     document.querySelectorAll(".toggle-senha").forEach(btn => {
       btn.addEventListener("click", () => {
         const input = btn.parentElement.querySelector(".senha-input");
@@ -225,7 +219,6 @@
       });
     });
 
-    // Registra o usuário e salva os dados
     function registrar(event) {
       event.preventDefault();
       const nome = document.getElementById("nome").value;
@@ -243,11 +236,10 @@
         nome,
         email,
         cargo,
-        foto: "" // URL futura para foto
+        foto: ""
       };
       localStorage.setItem("usuario", JSON.stringify(usuario));
 
-      // Verifica se o cargo é administrativo
       if (cargo === "administrativo") {
         window.location.href = "/SaudePlus/dashboard.html";
       } else {
