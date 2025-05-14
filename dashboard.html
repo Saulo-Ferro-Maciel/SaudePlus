@@ -115,7 +115,8 @@
       </div>
       <div class="flex flex-col gap-3">
         <a aria-label="Perfil do usuário" class="flex items-center gap-3 rounded-lg bg-white px-4 py-2 shadow-md hover:shadow-lg transition-shadow duration-200" href="profile.html">
-          <img id="foto-usuario" alt="Foto de perfil" class="w-8 h-8 rounded-full object-cover" src="src/default-foto.jpg" />
+          <img id="foto-usuario" alt="Foto de perfil" class="w-8 h-8 rounded-full object-cover" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT_COfMzaXFvUkyxHUw6bCb9EMNP9tNufE_uQ&s" />
+
           <div class="text-xs leading-tight text-left">
             <p id="nome-usuario" class="font-semibold text-black"></p>
             <p id="cargo-usuario" class="text-gray-500"></p>
@@ -199,23 +200,28 @@
     </main>
   </div>
 
-  <!-- Footer -->
-  <footer>
-    <p>© 2025 Feito por <span class="team-link" onclick="showPopup()">Four Team</span></p>
-  </footer>
+<!-- Footer -->
+<footer>
+  <p>
+    © 2025 Feito por
+    <span class="team-link" onclick="showPopup()">Four Team</span>
+    <i class="fab fa-github ml-1"></i>
+  </p>
+</footer>
 
-  <!-- Pop-up -->
-  <div class="overlay" id="overlay"></div>
-  <div class="popup animate__animated" id="teamPopup">
-    <span class="close-btn" onclick="hidePopup()">×</span>
-    <h3>Membros da Equipe:</h3>
-    <ul>
-      <li>Arthur (Chefe de equipe)</li>
-      <li>Saulo (Programador Full Stack)</li>
-      <li>Gabriela (Programadora Front-end)</li>
-      <li>Danilo (Designer UX)</li>
-    </ul>
-  </div>
+<!-- Pop-up -->
+<div class="overlay" id="overlay"></div>
+<div class="popup animate__animated" id="teamPopup">
+  <span class="close-btn" onclick="hidePopup()">×</span>
+  <h3>Membros da Equipe:</h3>
+  <ul>
+    <li>Arthur (Chefe de equipe)</li>
+    <li>Saulo (Programador Full Stack)</li>
+    <li>Gabriela (Programadora Front-end)</li>
+    <li>Danilo (Designer UX)</li>
+  </ul>
+</div>
+
 
   <!-- Scripts -->
   <script>
