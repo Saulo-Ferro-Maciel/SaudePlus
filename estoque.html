@@ -25,6 +25,18 @@
       margin: 0; /* Remove margens */
       box-sizing: border-box; /* Garante que padding não afete a largura */
       color: white; /* Letras brancas */
+      font-size:  * Estilização do footer */
+    footer {
+      background-color: #5C4BFF; /* Cor do botão de logout (roxo) */
+      padding: 5px 0; /* Padding apenas vertical para altura reduzida */
+      text-align: center;
+      font-family: 'Inter', sans-serif;
+      position: fixed;
+      bottom: 0;
+      width: 100%; /* Preenche toda a largura */
+      margin: 0; /* Remove margens */
+      box-sizing: border-box; /* Garante que padding não afete a largura */
+      color: white; /* Letras brancas */
       font-size: 14px; /* Tamanho da fonte */
       z-index: 1000; /* Garante que o footer fique acima de outros elementos */
     }
@@ -117,9 +129,15 @@
       height: 200px; /* Altura fixa para o gráfico */
     }
     .bar-name {
-      text-align: center; /* Centraliza o nome do produto abaixo da barra */
-      margin-top: 5px; /* Espaço entre a barra e o nome */
-      font-size: 12px; /* Tamanho da fonte do nome do produto */
+      color: white; /* Cor branca para os nomes */
+      writing-mode: vertical-rl; /* Orientação vertical, de baixo para cima */
+      text-align: center; /* Centraliza o texto verticalmente */
+      font-size: 12px; /* Tamanho da fonte */
+      position: absolute; /* Posiciona o nome dentro da barra */
+      bottom: 5px; /* Alinha na parte inferior da barra com pequeno espaço */
+      left: 50%; /* Centraliza horizontalmente */
+      transform: translateX(-50%) rotate(180deg); /* Ajusta a posição e gira para leitura correta */
+      white-space: nowrap; /* Evita quebra de linha */
     }
   </style>
 </head>
@@ -344,6 +362,16 @@
     document.getElementById("cargo-usuario").innerText = usuario.cargo.charAt(0).toUpperCase() + usuario.cargo.slice(1);
     if (usuario.foto) {
       document.getElementById("foto-usuario").src = usuario.foto;
+    }
+
+    function showPopup() {
+      document.getElementById("overlay").style.display = "block";
+      document.getElementById("teamPopup").style.display = "block";
+    }
+
+    function hidePopup() {
+      document.getElementById("overlay").style.display = "none";
+      document.getElementById("teamPopup").style.display = "none";
     }
 
     function atualizarEstoque() {
