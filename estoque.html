@@ -25,18 +25,6 @@
       margin: 0; /* Remove margens */
       box-sizing: border-box; /* Garante que padding não afete a largura */
       color: white; /* Letras brancas */
-      font-size:  * Estilização do footer */
-    footer {
-      background-color: #5C4BFF; /* Cor do botão de logout (roxo) */
-      padding: 5px 0; /* Padding apenas vertical para altura reduzida */
-      text-align: center;
-      font-family: 'Inter', sans-serif;
-      position: fixed;
-      bottom: 0;
-      width: 100%; /* Preenche toda a largura */
-      margin: 0; /* Remove margens */
-      box-sizing: border-box; /* Garante que padding não afete a largura */
-      color: white; /* Letras brancas */
       font-size: 14px; /* Tamanho da fonte */
       z-index: 1000; /* Garante que o footer fique acima de outros elementos */
     }
@@ -132,11 +120,9 @@
       color: white; /* Cor branca para os nomes */
       writing-mode: vertical-rl; /* Orientação vertical, de baixo para cima */
       text-align: center; /* Centraliza o texto verticalmente */
-      font-size: 12px; /* Tamanho da fonte */
-      position: absolute; /* Posiciona o nome dentro da barra */
-      bottom: 5px; /* Alinha na parte inferior da barra com pequeno espaço */
-      left: 50%; /* Centraliza horizontalmente */
-      transform: translateX(-50%) rotate(180deg); /* Ajusta a posição e gira para leitura correta */
+      margin-top: 5px; /* Espaço entre a barra e o nome */
+      font-size: 12px; /* Tamanho da fonte do nome do produto */
+      transform: rotate(180deg); /* Gira para leitura correta */
       white-space: nowrap; /* Evita quebra de linha */
     }
   </style>
@@ -161,7 +147,7 @@
           <a class="flex items-center gap-3 px-4 py-2 text-black text-sm font-normal" href="financeiro.html">
             <i class="fas fa-money-bill-wave text-base"></i> Financeiro
           </a>
-          <a aria-current="page" class="flex items-center gap-3 rounded-lg bg-[#E6E4FF] px-4 py-2 text-black text-sm font-normal" href="estoque.html">
+          <a aria-current="page sólidos, líquidos e gasosos" class="flex items-center gap-3 rounded-lg bg-[#E6E4FF] px-4 py-2 text-black text-sm font-normal" href="estoque.html">
             <i class="fas fa-clipboard-list text-base"></i> Estoque
           </a>
           <a class="flex items-center gap-3 px-4 py-2 text-black text-sm font-normal" href="administracao.html">
