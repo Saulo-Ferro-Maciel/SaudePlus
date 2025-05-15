@@ -84,11 +84,12 @@
     }
     .bar {
       background-color: black;
-      width: 40px; /* Largura das barras */
       border-radius: 5px;
       transition: height 0.3s ease; /* Transição suave ao mudar a altura */
       margin: 0 10px; /* Espaçamento horizontal entre as barras */
       position: relative; /* Para posicionar o tooltip */
+      min-width: 40px; /* Largura mínima para evitar barras muito estreitas */
+      max-width: 100px; /* Largura máxima para evitar barras muito largas */
     }
     .bar:hover {
       background-color: #555; /* Cor ao passar o mouse */
@@ -118,11 +119,9 @@
     }
     .bar-name {
       color: white; /* Cor branca para os nomes */
-      writing-mode: vertical-rl; /* Orientação vertical, de baixo para cima */
-      text-align: center; /* Centraliza o texto verticalmente */
+      text-align: center; /* Centraliza o nome do produto abaixo da barra */
+      margin-top: 5px; /* Espaço entre a barra e o nome */
       font-size: 12px; /* Tamanho da fonte do nome do produto */
-      transform: rotate(180deg) translateY(-100%); /* Gira e ajusta para iniciar na base da barra */
-      transform-origin: bottom center; /* Ponto de transformação na base do texto */
       white-space: nowrap; /* Evita quebra de linha */
     }
   </style>
@@ -363,9 +362,29 @@
     function atualizarEstoque() {
       const estoques = [350, 120, 80, 110, 90, 60, 70, 40, 30, 50]; // Exemplo de quantidades
       const barras = document.querySelectorAll('.bar');
+      const nomes = document.querySelectorAll('.bar-name');
+      const maxLabelChars = 10; // Limite para considerar um rótulo "longo"
 
       barras.forEach((barra, index) => {
-        barra.style.height = `${estoques[index] / 1.5}px`; // Ajustando a altura conforme a quantidade
+        // Ajustar altura da barra
+        barra.style.height = `${estoques[index] / 1.5}px`;
+
+        // Obter o texto do rótulo
+        let labelText = nomes[index].textContent;
+        const labelLength = labelText.length;
+
+        // Se o rótulo for longo, truncar para metade do comprimento
+        if (labelLength > maxLabelChars) {
+          const halfLength = Math.floor(labelLength / 2);
+          labelText = labelText.substring(0, halfLength) + '...';
+          nomes[index].textContent = labelText;
+        }
+
+        // Ajustar a largura da barra para acomodar metade do comprimento do rótulo
+        const charWidth = 8; // Aproximação da largura média de um caractere em pixels (12px fonte)
+        const halfLabelWidth = (labelText.length / 2) * charWidth;
+        const barWidth = Math.max(40, Math.min(halfLabelWidth, 100)); // Entre 40px e 100px
+        barra.style.width = `${barWidth}px`;
       });
     }
 
