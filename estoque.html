@@ -10,33 +10,31 @@
   <style>
     body {
       font-family: "Inter", sans-serif;
-      margin: 0; /* Remove margens padrão do body */
-      padding-bottom: 40px; /* Espaço para o footer fixo */
+      margin: 0;
+      padding-bottom: 40px;
     }
-    /* Estilização do footer */
     footer {
-      background-color: #5C4BFF; /* Cor do botão de logout (roxo) */
-      padding: 5px 0; /* Padding apenas vertical para altura reduzida */
+      background-color: #5C4BFF;
+      padding: 5px 0;
       text-align: center;
       font-family: 'Inter', sans-serif;
       position: fixed;
       bottom: 0;
-      width: 100%; /* Preenche toda a largura */
-      margin: 0; /* Remove margens */
-      box-sizing: border-box; /* Garante que padding não afete a largura */
-      color: white; /* Letras brancas */
-      font-size: 14px; /* Tamanho da fonte */
-      z-index: 1000; /* Garante que o footer fique acima de outros elementos */
+      width: 100%;
+      margin: 0;
+      box-sizing: border-box;
+      color: white;
+      font-size: 14px;
+      z-index: 1000;
     }
     .team-link {
-      color: white; /* Link branco */
+      color: white;
       cursor: pointer;
       text-decoration: underline;
     }
     .team-link:hover {
-      color: #f0f0f0; /* Leve destaque ao passar o mouse */
+      color: #f0f0f0;
     }
-    /* Estilização do pop-up */
     .popup {
       display: none;
       position: fixed;
@@ -47,16 +45,16 @@
       padding: 20px;
       border: 1px solid #ccc;
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-      z-index: 1001; /* Acima do footer e overlay */
+      z-index: 1001;
       text-align: left;
       font-family: 'Inter', sans-serif;
-      font-size: 18px; /* Fonte aumentada no pop-up */
-      max-width: 90%; /* Garante visibilidade em telas menores */
+      font-size: 18px;
+      max-width: 90%;
       box-sizing: border-box;
     }
     .popup h3 {
       margin-top: 0;
-      font-size: 20px; /* Título do pop-up com fonte maior */
+      font-size: 20px;
     }
     .close-btn {
       position: absolute;
@@ -64,13 +62,13 @@
       right: 10px;
       cursor: pointer;
       font-size: 18px;
-      background-color: rgba(255, 99, 71, 0.2); /* Fundo levemente avermelhado */
+      background-color: rgba(255, 99, 71, 0.2);
       padding: 5px 10px;
       border-radius: 5px;
       transition: background-color 0.2s;
     }
     .close-btn:hover {
-      background-color: rgba(255, 99, 71, 0.4); /* Efeito hover mais escuro */
+      background-color: rgba(255, 99, 71, 0.4);
     }
     .overlay {
       display: none;
@@ -80,23 +78,62 @@
       width: 100%;
       height: 100%;
       background: rgba(0, 0, 0, 0.5);
-      z-index: 999; /* Abaixo do pop-up, acima do resto */
+      z-index: 999;
+    }
+    .modal {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: white;
+      padding: 20px;
+      border: 1px solid #ccc;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      z-index: 1001;
+      width: 400px;
+      max-width: 90%;
+    }
+    .modal h3 {
+      margin-top: 0;
+      font-size: 18px;
+    }
+    .modal select, .modal input {
+      width: 100%;
+      padding: 8px;
+      margin-top: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+    .modal button {
+      margin-top: 10px;
+      background-color: #5B5FFB;
+      color: white;
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      width: 100%;
+    }
+    .modal button:hover {
+      background-color: #4a4ae0;
     }
     .bar {
       background-color: black;
       border-radius: 5px;
-      transition: height 0.3s ease; /* Transição suave ao mudar a altura */
-      margin: 0 10px; /* Espaçamento horizontal entre as barras */
-      position: relative; /* Para posicionar o tooltip */
-      min-width: 40px; /* Largura mínima para evitar barras muito estreitas */
-      max-width: 100px; /* Largura máxima para evitar barras muito largas */
+      transition: height 0.3s ease;
+      margin: 0 10px;
+      position: relative;
+      min-width: 40px;
+      max-width: 100px;
     }
     .bar:hover {
-      background-color: #555; /* Cor ao passar o mouse */
+      background-color: #555;
     }
     .bar-tooltip {
       position: absolute;
-      bottom: 100%; /* Acima da barra */
+      bottom: 100%;
       left: 50%;
       transform: translateX(-50%);
       background-color: rgba(0, 0, 0, 0.7);
@@ -104,25 +141,31 @@
       padding: 5px;
       border-radius: 5px;
       font-size: 12px;
-      white-space: nowrap; /* Para evitar quebra de linha */
+      white-space: nowrap;
       opacity: 0;
       transition: opacity 0.2s;
-      pointer-events: none; /* Para que o mouse possa passar pela tooltip */
+      pointer-events: none;
     }
     .bar:hover .bar-tooltip {
-      opacity: 1; /* Exibe a tooltip ao passar o mouse */
+      opacity: 1;
     }
     .bar-container {
       display: flex;
-      align-items: flex-end; /* Alinha as barras à parte inferior */
-      height: 200px; /* Altura fixa para o gráfico */
+      align-items: flex-end;
+      height: 200px;
+      justify-content: center;
     }
     .bar-name {
-      color: white; /* Cor branca para os nomes */
-      text-align: center; /* Centraliza o nome do produto abaixo da barra */
-      margin-top: 5px; /* Espaço entre a barra e o nome */
-      font-size: 12px; /* Tamanho da fonte do nome do produto */
-      white-space: nowrap; /* Evita quebra de linha */
+      color: white;
+      text-align: center;
+      margin-top: 5px;
+      font-size: 12px;
+      white-space: nowrap;
+    }
+    .bar-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
   </style>
 </head>
@@ -178,7 +221,7 @@
 
       <h2 class="text-lg font-semibold mb-4">Gestão de Estoque</h2>
 
-      <button class="mb-6 bg-[#5B5FFB] text-white font-semibold rounded-lg px-4 py-2 text-sm hover:bg-[#4a4ae0] transition-colors" type="button">
+      <button onclick="showModal()" class="mb-6 bg-[#5B5FFB] text-white font-semibold rounded-lg px-4 py-2 text-sm hover:bg-[#4a4ae0] transition-colors" type="button">
         Adicionar Produto
       </button>
 
@@ -190,7 +233,7 @@
               <span class="truncate">Luvas</span>
               <span class="text-xs text-gray-500">CódItem: 501</span>
             </div>
-            <span class="min-w-[90px] text-center">Unidades: 350</span>
+            <span class="min-w-[90px] text-center">Unidades: <span class="stock-quantity">350</span></span>
             <span class="min-w-[60px] text-center">Normal</span>
           </li>
           <li class="flex items-center justify-between py-3 text-sm font-normal text-black">
@@ -198,7 +241,7 @@
               <span class="truncate">Álcool</span>
               <span class="text-xs text-gray-500">CódItem: 502</span>
             </div>
-            <span class="min-w-[90px] text-center">Unidades: 120</span>
+            <span class="min-w-[90px] text-center">Unidades: <span class="stock-quantity">120</span></span>
             <span class="min-w-[60px] text-center">Baixo</span>
           </li>
           <li class="flex items-center justify-between py-3 text-sm font-normal text-black">
@@ -206,7 +249,7 @@
               <span class="truncate">Máscaras</span>
               <span class="text-xs text-gray-500">CódItem: 503</span>
             </div>
-            <span class="min-w-[90px] text-center">Unidades: 80</span>
+            <span class="min-w-[90px] text-center">Unidades: <span class="stock-quantity">80</span></span>
             <span class="min-w-[60px] text-center">Crítico</span>
           </li>
           <li class="flex items-center justify-between py-3 text-sm font-normal text-black">
@@ -214,7 +257,7 @@
               <span class="truncate">Seringa</span>
               <span class="text-xs text-gray-500">CódItem: 504</span>
             </div>
-            <span class="min-w-[90px] text-center">Unidades: 110</span>
+            <span class="min-w-[90px] text-center">Unidades: <span class="stock-quantity">110</span></span>
             <span class="min-w-[60px] text-center">Normal</span>
           </li>
           <li class="flex items-center justify-between py-3 text-sm font-normal text-black">
@@ -222,7 +265,7 @@
               <span class="truncate">Gaze</span>
               <span class="text-xs text-gray-500">CódItem: 505</span>
             </div>
-            <span class="min-w-[90px] text-center">Unidades: 90</span>
+            <span class="min-w-[90px] text-center">Unidades: <span class="stock-quantity">90</span></span>
             <span class="min-w-[60px] text-center">Baixo</span>
           </li>
           <li class="flex items-center justify-between py-3 text-sm font-normal text-black">
@@ -230,7 +273,7 @@
               <span class="truncate">Algodão</span>
               <span class="text-xs text-gray-500">CódItem: 506</span>
             </div>
-            <span class="min-w-[90px] text-center">Unidades: 60</span>
+            <span class="min-w-[90px] text-center">Unidades: <span class="stock-quantity">60</span></span>
             <span class="min-w-[60px] text-center">Crítico</span>
           </li>
           <li class="flex items-center justify-between py-3 text-sm font-normal text-black">
@@ -238,7 +281,7 @@
               <span class="truncate">Soro</span>
               <span class="text-xs text-gray-500">CódItem: 507</span>
             </div>
-            <span class="min-w-[90px] text-center">Unidades: 70</span>
+            <span class="min-w-[90px] text-center">Unidades: <span class="stock-quantity">70</span></span>
             <span class="min-w-[60px] text-center">Baixo</span>
           </li>
           <li class="flex items-center justify-between py-3 text-sm font-normal text-black">
@@ -246,7 +289,7 @@
               <span class="truncate">Fita</span>
               <span class="text-xs text-gray-500">CódItem: 523</span>
             </div>
-            <span class="min-w-[90px] text-center">Unidades: 40</span>
+            <span class="min-w-[90px] text-center">Unidades: <span class="stock-quantity">40</span></span>
             <span class="min-w-[60px] text-center">Crítica</span>
           </li>
           <li class="flex items-center justify-between py-3 text-sm font-normal text-black">
@@ -254,63 +297,25 @@
               <span class="truncate">Esparadrapo</span>
               <span class="text-xs text-gray-500">CódItem: 509</span>
             </div>
-            <span class="min-w-[90px] text-center">Unidades: 30</span>
+            <span class="min-w-[90px] text-center">Unidades: <span class="stock-quantity">30</span></span>
             <span class="min-w-[60px] text-center">Crítico</span>
           </li>
-          <li class="flex items-center justify-between py-3 text-sm font-normal text-black">
-            <div class="flex flex-col min-w-0">
-              <span class="truncate">Termômetro</span>
-              <span class="text-xs text-gray-500">CódItem: 510</span>
-            </div>
-            <span class="min-w-[90px] text-center">Unidades: 50</span>
-            <span class="min-w-[60px] text-center">Normal</span>
-          </li>
-        </ul>
-      </section>
-
-      <section>
-        <h3 class="text-base font-normal mb-6">Estoque por Categoria</h3>
-        <div class="flex">
-          <div class="flex-1 overflow-x-auto">
-            <div class="bar-container">
-              <div class="bar" style="height: 160px;" title="Luvas: 350 unidades">
-                <div class="bar-tooltip">350</div>
-                <div class="bar-name">Luvas</div>
-              </div>
-              <div class="bar" style="height: 120px;" title="Álcool: 120 unidades">
-                <div class="bar-tooltip">120</div>
-                <div class="bar-name">Álcool</div>
-              </div>
-              <div class="bar" style="height: 80px;" title="Máscaras: 80 unidades">
-                <div class="bar-tooltip">80</div>
-                <div class="bar-name">Máscaras</div>
-              </div>
-              <div class="bar" style="height: 110px;" title="Seringa: 110 unidades">
-                <div class="bar-tooltip">110</div>
-                <div class="bar-name">Seringa</div>
-              </div>
-              <div class="bar" style="height: 90px;" title="Gaze: 90 unidades">
-                <div class="bar-tooltip">90</div>
-                <div class="bar-name">Gaze</div>
-              </div>
-              <div class="bar" style="height: 60px;" title="Algodão: 60 unidades">
-                <div class="bar-tooltip">60</div>
-                <div class="bar-name">Algodão</div>
-              </div>
-              <div class="bar" style="height: 70px;" title="Soro: 70 unidades">
-                <div class="bar-tooltip">70</div>
-                <div class="bar-name">Soro</div>
-              </div>
-              <div class="bar" style="height: 40px;" title="Fita: 40 unidades">
-                <div class="bar-tooltip">40</div>
+          <li class="flex items-center justify-between py-3 text-smdiv class="bar-wrapper">
+                <div class="bar" style="height: 40px;" title="Fita: 40 unidades">
+                  <div class="bar-tooltip">40</div>
+                </div>
                 <div class="bar-name">Fita</div>
               </div>
-              <div class="bar" style="height: 30px;" title="Esparadrapo: 30 unidades">
-                <div class="bar-tooltip">30</div>
+              <div class="bar-wrapper">
+                <div class="bar" style="height: 30px;" title="Esparadrapo: 30 unidades">
+                  <div class="bar-tooltip">30</div>
+                </div>
                 <div class="bar-name">Esparadrapo</div>
               </div>
-              <div class="bar" style="height: 50px;" title="Termômetro: 50 unidades">
-                <div class="bar-tooltip">50</div>
+              <div class="bar-wrapper">
+                <div class="bar" style="height: 50px;" title="Termômetro: 50 unidades">
+                  <div class="bar-tooltip">50</div>
+                </div>
                 <div class="bar-name">Termômetro</div>
               </div>
             </div>
@@ -329,8 +334,8 @@
     </p>
   </footer>
 
-  <!-- Pop-up -->
-  <div class="overlay" id="overlay"></div>
+  <!-- Team Popup -->
+  <div class="overlay" id="teamOverlay"></div>
   <div class="popup animate__animated" id="teamPopup">
     <span class="close-btn" onclick="hidePopup()">×</span>
     <h3>Membros da Equipe:</h3>
@@ -342,60 +347,120 @@
     </ul>
   </div>
 
+  <!-- Modal para Adicionar Produto -->
+  <div class="overlay" id="modalOverlay"></div>
+  <div class="modal" id="modal">
+    <span class="close-btn" onclick="hideModal()">×</span>
+    <h3>Adicionar Produto</h3>
+    <label for="produto">Produto:</label>
+    <select id="produto">
+      <option value="0">Luvas (CódItem: 501)</option>
+      <option value="1">Álcool (CódItem: 502)</option>
+      <option value="2">Máscaras (CódItem: 503)</option>
+      <option value="3">Seringa (CódItem: 504)</option>
+      <option value="4">Gaze (CódItem: 505)</option>
+      <option value="5">Algodão (CódItem: 506)</option>
+      <option value="6">Soro (CódItem: 507)</option>
+      <option value="7">Fita (CódItem: 523)</option>
+      <option value="8">Esparadrapo (CódItem: 509)</option>
+      <option value="9">Termômetro (CódItem: 510)</option>
+    </select>
+    <label for="quantidade">Quantidade:</label>
+    <input type="number" id="quantidade" min="1" placeholder="Insira a quantidade" />
+    <button onclick="adicionarProduto()">Adicionar</button>
+  </div>
+
   <script>
+    // Array que contém as quantidades de cada item
+    let estoques = [350, 120, 80, 110, 90, 60, 70, 40, 30, 50];
+
+    // Atualiza informações do usuário
     document.getElementById("nome-usuario").innerText = usuario.nome;
     document.getElementById("cargo-usuario").innerText = usuario.cargo.charAt(0).toUpperCase() + usuario.cargo.slice(1);
     if (usuario.foto) {
       document.getElementById("foto-usuario").src = usuario.foto;
     }
 
+    // Funções do Team Popup
     function showPopup() {
       const popup = document.getElementById("teamPopup");
-      const overlay = document.getElementById("overlay");
-      popup.classList.add('animate__slideInUp'); // Adiciona efeito de entrada
+      const overlay = document.getElementById("teamOverlay");
+      popup.classList.add('animate__slideInUp');
       popup.style.display = "block";
       overlay.style.display = "block";
     }
 
     function hidePopup() {
       const popup = document.getElementById("teamPopup");
-      const overlay = document.getElementById("overlay");
-      popup.classList.remove('animate__slideInUp'); // Remove efeito para reativar na próxima abertura
+      const overlay = document.getElementById("teamOverlay");
+      popup.classList.remove('animate__slideInUp');
       popup.style.display = "none";
       overlay.style.display = "none";
     }
 
-    function atualizarEstoque() {
-      const estoques = [350, 120, 80, 110, 90, 60, 70, 40, 30, 50]; // Exemplo de quantidades
+    // Funções do Modal de Adicionar Produto
+    function showModal() {
+      document.getElementById("modal").style.display = "block";
+      document.getElementById("modalOverlay").style.display = "block";
+    }
+
+    function hideModal() {
+      document.getElementById("modal").style.display = "none";
+      document.getElementById("modalOverlay").style.display = "none";
+    }
+
+    function adicionarProduto() {
+      const produtoIndex = parseInt(document.getElementById("produto").value);
+      const quantidade = parseInt(document.getElementById("quantidade").value);
+      if (!isNaN(quantidade) && quantidade > 0) {
+        estoques[produtoIndex] += quantidade;
+        alert(`Produto ADICIONADO: CódItem ${produtoIndex + 501}, Quantidade: ${quantidade}`);
+        atualizarTabela();
+        atualizarGrafico();
+        hideModal();
+      } else {
+        alert("Por favor, insira uma quantidade válida.");
+      }
+    }
+
+    function atualizarTabela() {
+      const listaProdutos = document.querySelectorAll('.py-3');
+      listaProdutos.forEach((linha, index) => {
+        const unidades = linha.querySelector('.stock-quantity');
+        unidades.textContent = estoques[index];
+      });
+    }
+
+    function atualizarGrafico() {
       const barras = document.querySelectorAll('.bar');
       const nomes = document.querySelectorAll('.bar-name');
-      const maxLabelChars = 10; // Limite para considerar um rótulo "longo"
+      const maxLabelChars = 10;
 
       barras.forEach((barra, index) => {
         // Ajustar altura da barra
         barra.style.height = `${estoques[index] / 1.5}px`;
+        barra.setAttribute('title', `${nomes[index].textContent}: ${estoques[index]} unidades`);
+        barra.querySelector('.bar-tooltip').textContent = estoques[index];
 
-        // Obter o texto do rótulo
+        // Ajustar rótulo e largura da barra
         let labelText = nomes[index].textContent;
         const labelLength = labelText.length;
-
-        // Se o rótulo for longo, truncar para metade do comprimento
         if (labelLength > maxLabelChars) {
-          const halfLength = Math.floor(labelLength / 2);
-          labelText = labelText.substring(0, halfLength) + '...';
+          labelText = labelText.substring(0, Math.floor(labelLength / 2)) + '...';
           nomes[index].textContent = labelText;
         }
-
-        // Ajustar a largura da barra para acomodar metade do comprimento do rótulo
-        const charWidth = 8; // Aproximação da largura média de um caractere em pixels (12px fonte)
+        const charWidth = 8;
         const halfLabelWidth = (labelText.length / 2) * charWidth;
-        const barWidth = Math.max(40, Math.min(halfLabelWidth, 100)); // Entre 40px e 100px
+        const barWidth = Math.max(40, Math.min(halfLabelWidth, 100));
         barra.style.width = `${barWidth}px`;
       });
     }
 
-    // Chame a função para atualizar o estoque quando necessário
-    atualizarEstoque();
+    // Inicializa a página
+    document.addEventListener("DOMContentLoaded", () => {
+      atualizarTabela();
+      atualizarGrafico();
+    });
   </script>
 </body>
 </html>
