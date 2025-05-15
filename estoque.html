@@ -123,10 +123,9 @@
       background-color: black;
       border-radius: 5px;
       transition: height 0.3s ease;
-      margin: 0 10px;
       position: relative;
-      min-width: 40px;
-      max-width: 100px;
+      width: 40px; /* Fixed width for uniformity */
+      margin: 0 10px;
     }
     .bar:hover {
       background-color: #555;
@@ -154,18 +153,25 @@
       align-items: flex-end;
       height: 200px;
       justify-content: center;
+      gap: 10px; /* Consistent spacing between bars */
+      flex-wrap: nowrap;
+      overflow-x: auto;
     }
     .bar-name {
-      color: white;
+      color: black; /* Changed to black for visibility */
       text-align: center;
       margin-top: 5px;
       font-size: 12px;
       white-space: nowrap;
+      max-width: 80px; /* Limit label width */
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
     .bar-wrapper {
       display: flex;
       flex-direction: column;
       align-items: center;
+      flex: 0 0 auto; /* Prevent stretching */
     }
   </style>
 </head>
@@ -300,24 +306,23 @@
             <span class="min-w-[90px] text-center">Unidades: <span class="stock-quantity">30</span></span>
             <span class="min-w-[60px] text-center">Crítico</span>
           </li>
-          <li class="flex items-center justify-between py-3 text-smdiv class="bar-wrapper">
-                <div class="bar" style="height: 40px;" title="Fita: 40 unidades">
-                  <div class="bar-tooltip">40</div>
-                </div>
-                <div class="bar-name">Fita</div>
-              </div>
-              <div class="bar-wrapper">
-                <div class="bar" style="height: 30px;" title="Esparadrapo: 30 unidades">
-                  <div class="bar-tooltip">30</div>
-                </div>
-                <div class="bar-name">Esparadrapo</div>
-              </div>
-              <div class="bar-wrapper">
-                <div class="bar" style="height: 50px;" title="Termômetro: 50 unidades">
-                  <div class="bar-tooltip">50</div>
-                </div>
-                <div class="bar-name">Termômetro</div>
-              </div>
+          <li class="flex items-center justify-between py-3 text-sm font-normal text-black">
+            <div class="flex flex-col min-w-0">
+              <span class="truncate">Termômetro</span>
+              <span class="text-xs text-gray-500">CódItem: 510</span>
+            </div>
+            <span class="min-w-[90px] text-center">Unidades: <span class="stock-quantity">50</span></span>
+            <span class="min-w-[60px] text-center">Normal</span>
+          </li>
+        </ul>
+      </section>
+
+      <section>
+        <h3 class="text-base font-normal mb-6">Estoque por Categoria</h3>
+        <div class="flex">
+          <div class="flex-1 overflow-x-auto">
+            <div class="bar-container" id="barContainer">
+              <!-- Bars will be generated dynamically by JavaScript -->
             </div>
           </div>
         </div>
@@ -373,6 +378,18 @@
   <script>
     // Array que contém as quantidades de cada item
     let estoques = [350, 120, 80, 110, 90, 60, 70, 40, 30, 50];
+    const produtos = [
+      { nome: "Luvas", codItem: 501 },
+      { nome: "Álcool", codItem: 502 },
+      { nome: "Máscaras", codItem: 503 },
+      { nome: "Seringa", codItem: 504 },
+      { nome: "Gaze", codItem: 505 },
+      { nome: "Algodão", codItem: 506 },
+      { nome: "Soro", codItem: 507 },
+      { nome: "Fita", codItem: 523 },
+      { nome: "Esparadrapo", codItem: 509 },
+      { nome: "Termômetro", codItem: 510 }
+    ];
 
     // Atualiza informações do usuário
     document.getElementById("nome-usuario").innerText = usuario.nome;
@@ -414,7 +431,7 @@
       const quantidade = parseInt(document.getElementById("quantidade").value);
       if (!isNaN(quantidade) && quantidade > 0) {
         estoques[produtoIndex] += quantidade;
-        alert(`Produto ADICIONADO: CódItem ${produtoIndex + 501}, Quantidade: ${quantidade}`);
+        alert(`Produto ADICIONADO: CódItem ${produtos[produtoIndex].codItem}, Quantidade: ${quantidade}`);
         atualizarTabela();
         atualizarGrafico();
         hideModal();
@@ -432,27 +449,55 @@
     }
 
     function atualizarGrafico() {
-      const barras = document.querySelectorAll('.bar');
-      const nomes = document.querySelectorAll('.bar-name');
+      const barContainer = document.getElementById('barContainer');
+      barContainer.innerHTML = ''; // Clear existing bars
+
+      // Create array of products with quantities
+      const produtosComQuantidade = produtos.map((produto, index) => ({
+        nome: produto.nome,
+        quantidade: estoques[index]
+      }));
+
+      // Sort by quantity in descending order
+      produtosComQuantidade.sort((a, b) => b.quantidade - a.quantidade);
+
+      // Maximum stock for scaling
+      const maxEstoque = Math.max(...estoques, 1); // Avoid division by zero
       const maxLabelChars = 10;
 
-      barras.forEach((barra, index) => {
-        // Ajustar altura da barra
-        barra.style.height = `${estoques[index] / 1.5}px`;
-        barra.setAttribute('title', `${nomes[index].textContent}: ${estoques[index]} unidades`);
-        barra.querySelector('.bar-tooltip').textContent = estoques[index];
+      produtosComQuantidade.forEach((produto) => {
+        // Create bar wrapper
+        const wrapper = document.createElement('div');
+        wrapper.className = 'bar-wrapper';
 
-        // Ajustar rótulo e largura da barra
-        let labelText = nomes[index].textContent;
-        const labelLength = labelText.length;
-        if (labelLength > maxLabelChars) {
-          labelText = labelText.substring(0, Math.floor(labelLength / 2)) + '...';
-          nomes[index].textContent = labelText;
+        // Create bar
+        const bar = document.createElement('div');
+        bar.className = 'bar';
+        const height = (produto.quantidade / maxEstoque) * 180; // Scale to fit 180px max height
+        bar.style.height = `${height}px`;
+
+        // Create tooltip
+        const tooltip = document.createElement('div');
+        tooltip.className = 'bar-tooltip';
+        tooltip.textContent = produto.quantidade;
+        bar.appendChild(tooltip);
+
+        // Set title for accessibility
+        bar.setAttribute('title', `${produto.nome}: ${produto.quantidade} unidades`);
+
+        // Create label
+        const label = document.createElement('div');
+        label.className = 'bar-name';
+        let labelText = produto.nome;
+        if (labelText.length > maxLabelChars) {
+          labelText = labelText.substring(0, Math.floor(labelText.length / 2)) + '...';
         }
-        const charWidth = 8;
-        const halfLabelWidth = (labelText.length / 2) * charWidth;
-        const barWidth = Math.max(40, Math.min(halfLabelWidth, 100));
-        barra.style.width = `${barWidth}px`;
+        label.textContent = labelText;
+
+        // Append elements
+        wrapper.appendChild(bar);
+        wrapper.appendChild(label);
+        barContainer.appendChild(wrapper);
       });
     }
 
