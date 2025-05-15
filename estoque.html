@@ -120,9 +120,9 @@
       color: white; /* Cor branca para os nomes */
       writing-mode: vertical-rl; /* Orientação vertical, de baixo para cima */
       text-align: center; /* Centraliza o texto verticalmente */
-      margin-top: 5px; /* Espaço entre a barra e o nome */
       font-size: 12px; /* Tamanho da fonte do nome do produto */
-      transform: rotate(180deg); /* Gira para leitura correta */
+      transform: rotate(180deg) translateY(-100%); /* Gira e ajusta para iniciar na base da barra */
+      transform-origin: bottom center; /* Ponto de transformação na base do texto */
       white-space: nowrap; /* Evita quebra de linha */
     }
   </style>
@@ -147,7 +147,7 @@
           <a class="flex items-center gap-3 px-4 py-2 text-black text-sm font-normal" href="financeiro.html">
             <i class="fas fa-money-bill-wave text-base"></i> Financeiro
           </a>
-          <a aria-current="page sólidos, líquidos e gasosos" class="flex items-center gap-3 rounded-lg bg-[#E6E4FF] px-4 py-2 text-black text-sm font-normal" href="estoque.html">
+          <a aria-current="page" class="flex items-center gap-3 rounded-lg bg-[#E6E4FF] px-4 py-2 text-black text-sm font-normal" href="estoque.html">
             <i class="fas fa-clipboard-list text-base"></i> Estoque
           </a>
           <a class="flex items-center gap-3 px-4 py-2 text-black text-sm font-normal" href="administracao.html">
