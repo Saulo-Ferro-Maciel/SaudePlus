@@ -350,13 +350,19 @@
     }
 
     function showPopup() {
-      document.getElementById("overlay").style.display = "block";
-      document.getElementById("teamPopup").style.display = "block";
+      const popup = document.getElementById("teamPopup");
+      const overlay = document.getElementById("overlay");
+      popup.classList.add('animate__slideInUp'); // Adiciona efeito de entrada
+      popup.style.display = "block";
+      overlay.style.display = "block";
     }
 
     function hidePopup() {
-      document.getElementById("overlay").style.display = "none";
-      document.getElementById("teamPopup").style.display = "none";
+      const popup = document.getElementById("teamPopup");
+      const overlay = document.getElementById("overlay");
+      popup.classList.remove('animate__slideInUp'); // Remove efeito para reativar na próxima abertura
+      popup.style.display = "none";
+      overlay.style.display = "none";
     }
 
     function atualizarEstoque() {
