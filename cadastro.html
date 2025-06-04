@@ -70,6 +70,26 @@
       </div>
 
       <div>
+  <label class="block mb-1 text-xs sm:text-sm font-semibold cursor-pointer" for="hospital">
+    Hospital ou Clínica
+  </label>
+  <select
+    class="w-full rounded-lg bg-gray-100 dark:bg-gray-700 px-3 sm:px-4 py-2 sm:py-3 text-xs sm:text-base text-black dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-600"
+    id="hospital"
+    name="hospital"
+    required
+  >
+    <option disabled selected value="">Selecione um hospital ou clínica</option>
+    <option value="hospital-central">Hospital Central</option>
+    <option value="hospital-sao-lucas">Hospital São Lucas</option>
+    <option value="hospital-vida-nova">Hospital Vida Nova</option>
+    <option value="clinica-viver-bem">Clínica Viver Bem</option>
+    <option value="clinica-saudavel">Clínica Saudável</option>
+  </select>
+</div>
+
+
+      <div>
         <label class="block mb-1 text-xs sm:text-sm font-semibold cursor-pointer" for="cargo">
           Cargo
         </label>
